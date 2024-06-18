@@ -11,15 +11,13 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('users', function (Blueprint $table) {
+        Schema::create('galleries', function (Blueprint $table) {
             $table->id();
-            $table->string('name')->unique();
-            $table->string('no_telpon');
-            $table->string('email')->unique();
-            $table->timestamp('email_verified_at')->nullable();
-            $table->string('password');
-            $table->enum('level', ['super_admin', 'admin'])->default('admin');
-            // $table->rememberToken();
+            $table->string('name');
+            $table->string('file_name');
+            $table->string('file_type')->nullable();
+            $table->integer('file_size')->nullable();
+            $table->foreignId('users_id')->constrained('users'); // Tabel pengguna referensi kunci asing
             // $table->timestamps();
             $table->datetime('tgl_buat')->nullable();
             $table->datetime('tgl_update')->nullable();
@@ -31,6 +29,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('users');
+        Schema::dropIfExists('galleries');
     }
 };
