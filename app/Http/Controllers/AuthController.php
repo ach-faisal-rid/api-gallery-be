@@ -58,4 +58,49 @@ class AuthController extends Controller
             'token' => $token,
         ], 200);
     }
+    // fungsi forgot-password
+    public function forgotPassword(Request $request)
+    {
+        // Validasi request
+        $validator = Validator::make($request->all(), [
+            'email' => 'required|email',
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json(['message' => 'Data tidak lengkap'], 400);
+        }
+
+        // Verifikasi email
+        $user = User::where('email', $request->email)->first();
+
+        if (!$user) {
+            return response()->json(['message' => 'maaf email tidak terdaftar'], 400);
+        }
+
+        // Cek apakah user ditemukan
+        dd($user);
+
+        // Setel password default
+        $defaultPassword = 'galeri2020';
+
+        try {
+            // Reset password dan simpan ke database
+            $user->password = Hash::make($defaultPassword);
+            $user->save();
+
+            // Cek apakah password berhasil disimpan
+            dd('Password berhasil disimpan');
+        } catch (\Exception $e) {
+            // Menangani kesalahan tanpa log
+            if (strpos($e->getMessage(), 'SQLSTATE[HY000] [1049]') !== false) {
+                return response()->json(['message' => 'SQLSTATE[HY000] [1049] Unknown database \'nama-database-salah\''], 500);
+            } else {
+                return response()->json(['message' => 'Terjadi kesalahan pada server: ' . $e->getMessage()], 500);
+            }
+        }
+
+        return response()->json(['message' => 'Akun berhasil dilakukan Reset Password, Gunakan password galeri2020'], 200);
+    }
+
+
 }

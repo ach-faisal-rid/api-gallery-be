@@ -21,3 +21,6 @@ use App\Http\Controllers\AuthController;
 
 // route login
 Route::post('/login', [AuthController::class, 'login']);
+
+// route forgot password
+Route::post('/forgot-password',[AuthController::class, 'forgotPassword']);
