@@ -25,5 +25,9 @@ Route::post('/login', [AuthController::class, 'login']);
 // route forgot password
 Route::post('/forgot-password',[AuthController::class, 'forgotPassword']);
 
-// route current
-Route::get('/current',[AuthController::class, 'currentUser']);
+Route::middleware('auth:sanctum')->group(function () {
+
+    // route current
+    Route::get('/current',[AuthController::class, 'currentUser']);
+
+});
