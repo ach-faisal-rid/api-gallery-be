@@ -3,6 +3,7 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\UserController;
 
 /*
 |--------------------------------------------------------------------------
@@ -29,5 +30,9 @@ Route::middleware('auth:sanctum')->group(function () {
 
     // route current
     Route::get('/current',[AuthController::class, 'currentUser']);
+    // route untuk users
+    Route::get('/users', [UserController::class, 'filterUser']);
+    // route untuk users
+    Route::get('/users/{id}', [UserController::class, 'filterUserById']);
 
 });
