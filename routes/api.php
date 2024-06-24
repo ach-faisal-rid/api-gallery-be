@@ -34,5 +34,11 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('/users', [UserController::class, 'filterUser']);
     // route untuk users
     Route::get('/users/{id}', [UserController::class, 'filterUserById']);
+    // route tambah user
+    Route::post('/users', [UserController::class, 'store_buat_data_baru']);
+    // route update
+    Route::put('/users/{id}', [UserController::class, 'update_merubah_data']);
+    // route delete
+    Route::delete('/users/{id}', [UserController::class, 'delete_menghapus_data']);
 
 });

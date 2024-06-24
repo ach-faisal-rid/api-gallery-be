@@ -23,8 +23,9 @@ class SuperAdminSeeder extends Seeder
             'password' => Hash::make('password123'),
             // Jangan gunakan password yang lemah di produksi '
             'level' => 'super_admin',
-            'tgl_buat' => now(),
-            'tgl_update' => now(),
+            'email_verified_at' => now(),
+            'created_at' => now(),
+            'updated_at' => now()
         ]);
     }
 }

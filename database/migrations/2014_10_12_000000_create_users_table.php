@@ -19,10 +19,10 @@ return new class extends Migration
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
             $table->enum('level', ['super_admin', 'admin'])->default('admin');
-            // $table->rememberToken();
-            // $table->timestamps();
-            $table->datetime('tgl_buat')->nullable();
-            $table->datetime('tgl_update')->nullable();
+            $table->rememberToken();
+            $table->timestamps();
+            // $table->datetime('tgl_buat')->nullable();
+            // $table->datetime('tgl_update')->nullable();
         });
     }
 
