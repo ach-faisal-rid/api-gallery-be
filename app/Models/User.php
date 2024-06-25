@@ -51,4 +51,10 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+     // Relasi ke gallery
+     public function gallery()
+     {
+         return $this->hasMany('App\Models\Gallery');
+     }
 }

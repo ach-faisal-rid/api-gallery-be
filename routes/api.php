@@ -3,6 +3,7 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\GalleryController;
 use App\Http\Controllers\UserController;
 
 /*
@@ -40,5 +41,8 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::put('/users/{id}', [UserController::class, 'update_merubah_data']);
     // route delete
     Route::delete('/users/{id}', [UserController::class, 'delete_menghapus_data']);
+
+    // route filter gallery
+    Route::get('/gallery', [GalleryController::class, 'filterGallery']);
 
 });

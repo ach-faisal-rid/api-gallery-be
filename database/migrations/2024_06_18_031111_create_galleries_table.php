@@ -18,9 +18,9 @@ return new class extends Migration
             $table->string('file_type')->nullable();
             $table->integer('file_size')->nullable();
             $table->foreignId('users_id')->constrained('users'); // Tabel pengguna referensi kunci asing
-            // $table->timestamps();
-            $table->datetime('tgl_buat')->nullable();
-            $table->datetime('tgl_update')->nullable();
+            $table->timestamps();
+            // $table->datetime('tgl_buat')->nullable();
+            // $table->datetime('tgl_update')->nullable();
         });
     }
 
