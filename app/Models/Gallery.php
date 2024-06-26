@@ -13,9 +13,13 @@ class Gallery extends Model
 
     protected $fillable = [
         'name',
+        'file',
         'file_name',
         'file_type',
-        'file_size'
+        'file_size',
+        'users_id',
+        'updated_at',
+        'created_at'
     ];
 
     protected $guarded = [

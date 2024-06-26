@@ -44,5 +44,14 @@ Route::middleware('auth:sanctum')->group(function () {
 
     // route filter gallery
     Route::get('/gallery', [GalleryController::class, 'filterGallery']);
-
+    // route fillter gallery id
+    Route::get('/gallery/{id}', [GalleryController::class, 'filterGalleryById']);
+    // route tambah gallery
+    Route::post('/gallery', [GalleryController::class, 'store_buat_data_baru']);
+    // route update gallery name
+    Route::put('/gallery/{id}', [GalleryController::class, 'update_merubah_data']);
+    // route update image gallery
+    Route::post('/gallery/update-image/{id}', [GalleryController::class, 'update_image']);
+    // route hapus gallery
+    Route::delete('/gallery/{id}', [GalleryController::class, 'delete_menghapus_data']);
 });
