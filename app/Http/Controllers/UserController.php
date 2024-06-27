@@ -11,7 +11,7 @@ use App\Models\User;
 class UserController extends Controller
 {
     // Fungsi filter
-    public function filterUser(Request $request)
+    public function index_ambil_data(Request $request)
     {
         // Ambil semua query parameter untuk filter
         $filters = $request->only(['name', 'email', 'no_telephone', 'level']);
@@ -52,21 +52,16 @@ class UserController extends Controller
     }
 
     // Fungsi filter berdasarkan id pengguna
-    public function filterUserById(Request $request)
-    {
-        // Ambil semua query parameter untuk filter termasuk 'id'
-        $filters = $request->only(['id']);
+    public function show_detail_data($id) {
+        // Konversi ID ke integer untuk memastikan query yang tepat
+        $id = (int) $id;
 
-        // Periksa jika 'id' tidak ada dalam request
-        if (empty($filters['id'])) {
+        // Periksa jika ID tidak valid (misalnya, kurang dari 1)
+        if ($id <= 0) {
             return response()->json([
-                'message' => 'ID pengguna harus disertakan dalam permintaan.',
-                'filters' => $filters
+                'message' => 'ID pengguna harus berupa angka positif yang valid.',
             ], 400); // Mengembalikan status HTTP 400 (Bad Request)
         }
-
-        // Konversi ID ke integer untuk memastikan query yang tepat
-        $id = (int) $filters['id'];
 
         // Cari pengguna berdasarkan ID
         $user = User::find($id);
@@ -75,8 +70,7 @@ class UserController extends Controller
         if (!$user) {
             return response()->json([
                 'message' => 'Pengguna dengan ID tersebut tidak ditemukan.',
-                'filters' => $filters
-            ], 404); // Mengembalikan status HTTP 404
+            ], 404); // Mengembalikan status HTTP 404 (Not Found)
         }
 
         // Kembalikan hasil sebagai respons JSON
@@ -84,8 +78,7 @@ class UserController extends Controller
     }
 
     // Fungsi untuk memformat nomor telepon
-    private function format_nomor(string $nomor): string
-    {
+    private function format_nomor(string $nomor): string {
         // Cek apakah nomor telepon dimulai dengan '0'
         if (substr($nomor, 0, 1) === '0') {
             // Mengganti '0' dengan '62'
@@ -95,8 +88,7 @@ class UserController extends Controller
     }
 
     // Fungsi untuk menyimpan data baru
-    public function store_buat_data_baru(Request $request)
-    {
+    public function store_buat_data_baru(Request $request) {
         // Validasi request dari client
         $validator = Validator::make($request->all(), [
             'name' => 'required|string|max:255',
@@ -135,8 +127,7 @@ class UserController extends Controller
     }
 
     // Fungsi untuk memperbarui data pengguna
-    public function update_merubah_data(Request $request, $id)
-    {
+    public function update_merubah_data(Request $request, $id) {
         // Log request data
         Log::info('Update request received', ['request_data' => $request->all(), 'user_id' => $id]);
 
@@ -198,8 +189,7 @@ class UserController extends Controller
 
 
     // Fungsi untuk menghapus data pengguna
-    public function delete_menghapus_data($id)
-    {
+    public function delete_menghapus_data($id) {
         // Cari pengguna berdasarkan ID
         $user = User::find($id);
 

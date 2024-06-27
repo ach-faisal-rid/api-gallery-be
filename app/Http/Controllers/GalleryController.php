@@ -10,7 +10,7 @@ use Illuminate\Support\Facades\Storage;
 class GalleryController extends Controller
 {
     // fungsi filter all
-    public function filterGallery(Request $request) {
+    public function index_ambil_data(Request $request) {
         // Ambil semua query parameter untuk filter
         $filters = $request->only(['name']);
 
@@ -37,31 +37,26 @@ class GalleryController extends Controller
         return response()->json($gallery);
     }
 
-    // fungsi filter gallery id
-    public function filterGalleryById(Request $request) {
-        // Ambil semua query parameter untuk filter termasuk 'id'
-        $filters = $request->only(['id']);
+    // Fungsi filter berdasarkan id galeri
+    public function show_detail_data($id) {
+        // Konversi ID ke integer untuk memastikan query yang tepat
+        $id = (int) $id;
 
-        // Periksa jika 'id' tidak ada dalam request
-        if (empty($filters['id'])) {
+        // Periksa jika ID tidak valid (misalnya, kurang dari 1)
+        if ($id <= 0) {
             return response()->json([
-                'message' => 'ID pengguna harus disertakan dalam permintaan.',
-                'filters' => $filters
+                'message' => 'ID galeri harus berupa angka positif yang valid.',
             ], 400); // Mengembalikan status HTTP 400 (Bad Request)
         }
 
-        // Konversi ID ke integer untuk memastikan query yang tepat
-        $id = (int) $filters['id'];
-
-        // Cari pengguna berdasarkan ID
+        // Cari galeri berdasarkan ID
         $gallery = Gallery::find($id);
 
         // Periksa jika data tidak ditemukan
         if (!$gallery) {
             return response()->json([
-                'message' => 'Pengguna dengan ID tersebut tidak ditemukan.',
-                'filters' => $filters
-            ], 404); // Mengembalikan status HTTP 404
+                'message' => 'Galeri dengan ID tersebut tidak ditemukan.',
+            ], 404); // Mengembalikan status HTTP 404 (Not Found)
         }
 
         // Kembalikan hasil sebagai respons JSON

@@ -103,7 +103,7 @@ class AuthController extends Controller
     }
 
     // fungsi current
-    public function currentUser() {
+    public function current() {
         $user = auth()->user();
 
         if ($user) {

@@ -30,11 +30,11 @@ Route::post('/forgot-password',[AuthController::class, 'forgotPassword']);
 Route::middleware('auth:sanctum')->group(function () {
 
     // route current
-    Route::get('/current',[AuthController::class, 'currentUser']);
+    Route::get('/current',[AuthController::class, 'current']);
     // route untuk users
-    Route::get('/users', [UserController::class, 'filterUser']);
-    // route untuk users
-    Route::get('/users/{id}', [UserController::class, 'filterUserById']);
+    Route::get('/users', [UserController::class, 'index_ambil_data']);
+    // route untuk users id
+    Route::get('/users/{id}', [UserController::class, 'show_detail_data']);
     // route tambah user
     Route::post('/users', [UserController::class, 'store_buat_data_baru']);
     // route update
@@ -43,9 +43,9 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::delete('/users/{id}', [UserController::class, 'delete_menghapus_data']);
 
     // route filter gallery
-    Route::get('/gallery', [GalleryController::class, 'filterGallery']);
+    Route::get('/gallery', [GalleryController::class, 'index_ambil_data']);
     // route fillter gallery id
-    Route::get('/gallery/{id}', [GalleryController::class, 'filterGalleryById']);
+    Route::get('/gallery/{id}', [GalleryController::class, 'show_detail_data']);
     // route tambah gallery
     Route::post('/gallery', [GalleryController::class, 'store_buat_data_baru']);
     // route update gallery name
